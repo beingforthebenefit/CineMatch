@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: {browser: true, es2020: true},
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -12,9 +12,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    ecmaFeatures: { jsx: true },
+    ecmaFeatures: {jsx: true},
   },
-  settings: { react: { version: '18.2' } },
+  settings: {react: {version: '18.2'}},
   plugins: ['react-refresh'],
   rules: {
     'semi': ['error', 'never'],
@@ -33,7 +33,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react-refresh/only-export-components': [
       'warn',
-      { allowConstantExport: true },
+      {allowConstantExport: true},
     ],
     'object-curly-spacing': ['error', 'never'],
     '@typescript-eslint/object-curly-spacing': ['error', 'never'],
