@@ -17,10 +17,6 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World from TypeScript')
-})
-
 app.get('/api/image/:imagePath', async (req: Request, res: Response) => {
     const {imagePath} = req.params
     const decodedPath = decodeURIComponent(imagePath)

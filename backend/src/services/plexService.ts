@@ -6,7 +6,9 @@ type MovieResponse = {
         title: string
         year: string
         rating: string
-        art: string
+        audienceRating: string
+        thumb: string
+        summary: string
     }
 }
 
@@ -22,7 +24,9 @@ export async function fetchMoviesFromPlex(year = 2015, rating = 8.5): Promise<st
             title: video.$.title,
             year: video.$.year,
             rating: video.$.rating,
-            art: `${process.env.PLEX_BASE_URL}${video.$.art}`,
+            audienceRating: video.$.audienceRating,
+            art: `${process.env.PLEX_BASE_URL}${video.$.thumb}`,
+            summary: video.$.summary,
         }))
         return movies
     } catch (error) {
