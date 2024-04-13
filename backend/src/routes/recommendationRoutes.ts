@@ -16,4 +16,14 @@ router.post('/recommend-movies', async (req: Request, res: Response) => {
     }
 })
 
+router.post('/fetch-movies', async (req: Request, res: Response) => {
+    try {
+        const availableMovies = await fetchMoviesFromPlex()
+        res.json({movies: availableMovies})
+    } catch (error) {
+        console.error('Error fetching movies from Plex:', error)
+        res.status(500).json({error: 'Failed to fetch movies from Plex'})
+    }
+})
+
 export default router
