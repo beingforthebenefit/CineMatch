@@ -4,15 +4,27 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 })
 
-export async function generateChatResponse(userInput: string) {
+export async function getMovieRecommendations(userPreferences: string, availableMovies: string[]): Promise<string[]> {
     try {
-        const chatCompletion = await openai.chat.completions.create({
-            messages: [{role: 'user', content: userInput}],
-            model: 'gpt-3.5-turbo',
+        const prompt = `
+            The user's preferences are as follows: ${userPreferences}.
+            The available movies are: ${availableMovies.join(', ')}.
+            Provide a JSON formatted list of recommended movies based on the preferences.
+        `
+
+        const completion = await openai.completions.create({
+            model: 'text-davinci-003',
+            prompt: prompt,
+            max_tokens: 200,
+            stop: ['\n'],
+            temperature: 0.7,
         })
-        return chatCompletion.choices[0].message.content
+
+        const responseText = completion.choices[0].text.trim()
+        const recommendations = JSON.parse(responseText)
+        return recommendations
     } catch (error) {
-        console.error('Error calling OpenAI:', error)
-        throw error
+        console.error('Error fetching recommendation from OpenAI:', error)
+        throw new Error('Failed to generate movie recommendations from OpenAI')
     }
 }

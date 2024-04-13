@@ -1,14 +1,17 @@
 import {Router, Request, Response} from 'express'
-import {generateChatResponse} from '../services/openaiService'
+import {getMovieRecommendations} from '../services/openaiService'
+import {fetchMoviesFromPlex} from '../services/plexService'
 
 const router = Router()
 
-router.post('/chat-response', async (req: Request, res: Response) => {
-    const {userInput} = req.body
+router.post('/recommend-movies', async (req: Request, res: Response) => {
+    const {userPreferences} = req.body
     try {
-        const responseText = await generateChatResponse(userInput)
+        const availableMovies = await fetchMoviesFromPlex()
+        const responseText = await getMovieRecommendations(userPreferences, availableMovies)
         res.json({message: responseText})
     } catch (error) {
+        console.error('Error fetching recommendation from OpenAI:', error)
         res.status(500).json({error: 'Failed to generate response from OpenAI'})
     }
 })
