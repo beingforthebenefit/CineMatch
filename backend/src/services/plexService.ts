@@ -12,9 +12,18 @@ type MovieResponse = {
     }
 }
 
-export async function fetchMoviesFromPlex(year = 2015, rating = 8.5): Promise<string[]> {
+export type Movie = {
+    title: string
+    year: number
+    rating: number
+    audienceRating: number
+    art: string
+    summary: string
+}
+
+export async function fetchMoviesFromPlex(): Promise<Movie[]> {
     try {
-        const url = `${process.env.PLEX_BASE_URL}/library/sections/1/unwatched?X-Plex-Token=${process.env.PLEX_TOKEN}&year>=${year}&rating>=${rating}`
+        const url = `${process.env.PLEX_BASE_URL}/library/sections/1/unwatched?X-Plex-Token=${process.env.PLEX_TOKEN}`
         const response = await axios.get(url, {
             headers: {'Accept': 'application/xml'},
         })

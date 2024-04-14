@@ -41,4 +41,8 @@ export const MovieImage = styled.img`
   width: 100%;
   height: 340px;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 `

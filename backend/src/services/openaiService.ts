@@ -1,10 +1,11 @@
 import OpenAI from 'openai'
+import {Movie} from './plexService'
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 })
 
-export async function getMovieRecommendations(userPreferences: string, availableMovies: string[]): Promise<string[]> {
+export async function getMovieRecommendations(userPreferences: string, availableMovies: Movie[]): Promise<string[]> {
     try {
         const prompt = `
             The user's preferences are as follows: ${userPreferences}.
